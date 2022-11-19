@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URI;
+import java.nio.file.Files;
 import java.util.logging.Level;
 
 import javax.ws.rs.core.HttpHeaders;
@@ -95,7 +96,7 @@ public class URIUtils {
         if (rsp.getHeaders().getFirst(HttpHeaders.CONTENT_TYPE).endsWith("xml")) {
             suffix = ".xml";
         }
-        File destFile = File.createTempFile("entity-", suffix);
+        File destFile = Files.createTempFile("entity-", suffix).toFile();
         if (rsp.hasEntity()) {
             InputStream is = rsp.getEntityInputStream();
             OutputStream os = new FileOutputStream(destFile);
